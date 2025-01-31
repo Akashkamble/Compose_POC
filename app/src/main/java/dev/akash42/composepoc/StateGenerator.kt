@@ -23,7 +23,6 @@ fun rememberPassbookRecentStateGenerator(
     numberOfEntries: Int = 3
 ): PassbookRecentStateGenerator {
     return remember {
-        println("whygg remember called")
         PassbookRecentStateGenerator(
             numberOfEntries = numberOfEntries
         )
@@ -39,12 +38,9 @@ data class PassbookRecentStateGenerator(
     var passbookEntriesState by mutableStateOf(RecentPassbookEntriesState(listOf(), false, null))
         private set
     fun refresh(){
-        println("whygg refresh called")
         val existingEntries = passbookEntriesState.list.toMutableList()
-        println("whygg original list $existingEntries")
         existingEntries.add(0, PassBookEntry("Name", Random.nextInt(500, 5001).toString()))
         val newList = existingEntries.take(numberOfEntries).toList()
-        println("whygg newlist from passbook: $newList")
         passbookEntriesState = passbookEntriesState.copy(list = newList)
     }
 }
@@ -71,7 +67,6 @@ fun PassbookRecentEntriesComposable(
     }
     LaunchedEffect(txnUid) {
         if(txnUid != null) {
-            println("whygg in LaunchedEffect $txnUid")
             stateGenerator.refresh()
         }
     }
@@ -85,7 +80,6 @@ fun PassbookRecentEntries(
     state: RecentPassbookEntriesState,
     modifier: Modifier = Modifier
 ) {
-    println("whygg state: $state")
     if(state.isLoading) {
         Box(
             modifier = modifier.fillMaxWidth(),
