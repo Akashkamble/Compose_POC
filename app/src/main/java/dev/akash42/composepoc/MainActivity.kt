@@ -50,6 +50,14 @@ fun getComposable(txnUid: String?) {
 }
 
 @Composable
+fun RandomComposable(modifier: Modifier = Modifier) {
+    Text(
+        text = "This is bad text: Random: ${Random.nextInt(5000, 100000)}",
+        modifier = modifier
+    )
+}
+
+@Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
